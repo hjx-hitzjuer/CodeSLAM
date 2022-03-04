@@ -8,10 +8,7 @@
 DATA:
   # Name of the dataset. Some options will apply only for some datasets. Possible "replica"
   NAME: "replica"
-  ROOT_DIR: "/media/hjx/2D97AD940A9AD661/SceneNet/train_0"
-  # IMG_WIDTH must be divisible by 32
-  IMG_WIDTH: 640
-  IMG_HEIGHT: 480
+  ROOT_DIR: "data"
   DTYPE: "float32"
   # If normalize the depth to [0, 1]
   NORMALIZE: False

@@ -1,7 +1,6 @@
 import torch
 import torch.nn as nn
-from models.modules import Encode, Decode, UNet, reparameterize, initialize_weights
-
+from models.modules import Encode, Decode, UNet, reparameterize, initialize_weights, Jacobian
 
 
 class CodeNet(nn.Module):
@@ -19,8 +18,7 @@ class CodeNet(nn.Module):
         # self.jacobian = Jacobian(self.depth_decode)
         initialize_weights(self)
 
-
-    def forward(self, img, depth):
+    def forward(self, img, depth, get_jacobian=False):
         f512, f256, f128, f64, std_pyr0, std_pyr1, std_pyr2 = self.unet(
             img)  # f** means image feature with n channels for concat
         image_mu, image_logvar = self.image_encode(img, f512, f256, f128, f64)
@@ -29,8 +27,12 @@ class CodeNet(nn.Module):
         depth_code = reparameterize(depth_mu, depth_logvar)
         depth_rec = self.depth_decode(depth_code, f512, f256, f128, f64)
         depth_pred = self.depth_decode(image_code, f512, f256, f128, f64)
+        jacobian = None
+        if get_jacobian:
+            jacobian = self.generate_jacobian(f512, f256, f128, f64)
         return {'image_mu': image_mu, 'image_logvar': image_logvar, 'depth_pred': depth_pred, 'depth_mu': depth_mu,
-                'depth_logvar': depth_logvar, 'depth_rec': depth_rec, 'b': [std_pyr0, std_pyr1, std_pyr2]}
+                'depth_logvar': depth_logvar, 'depth_rec': depth_rec, 'b': [std_pyr0, std_pyr1, std_pyr2],
+                'jacobian': jacobian}
 
     def outputs_to_dict(self, outputs):
         for i, stage in enumerate(self.stages):
@@ -38,4 +40,10 @@ class CodeNet(nn.Module):
                                                            / (outputs['depth_pred'][2 - i] + 1e-10), dim=1)}})
         return outputs
 
-
+    def generate_jacobian(self, f512, f256, f128, f64):
+        assert not self.training, "Training is not available for jacobian"
+        self.jacobian = Jacobian(self.depth_decode)
+        J = self.depth_decode.decoder_linear.weight
+        J = J.view(512, 12, 16, 32).permute(3, 0, 1, 2)
+        jacobians = self.jacobian(J, f512, f256, f128, f64)
+        return jacobians
