@@ -21,7 +21,7 @@ conda install pytorch==1.5.1 torchvision==0.6.1 cudatoolkit=10.2 -c pytorch
 pip install -r requirements.txt
 ```
 
-**Comment:** The environment uses PyTorch `1.5.1` and PyTorch-Lightning `0.7.6` because this was the environment we used for development. 
+**Comment:** The environment use PyTorch `1.5.1` and PyTorch-Lightning `0.7.6` because this was the environment we used for development. 
 
 ### Training
 Config values are documented in `config/default.yaml`.  You can start a training with
@@ -36,4 +36,4 @@ The boundary is blur, the VAE encode to low dimension will lose high frequency.
 
 
 # Acknowledgements
-thanks for [TANDEM](https://github.com/tum-vision/tandem.git), My code is build on it's framework.
+Thanks for [TANDEM](https://github.com/tum-vision/tandem.git), my code is build on it's framework.
