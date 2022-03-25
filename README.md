@@ -5,7 +5,7 @@ Unofficial implement of "CodeSLAM — Learning a Compact, Optimisable Representa
 and "DeepFactors: Real-Time Probabilistic Dense Monocular SLAM".
 
 ### Notice
-This repo have replicate the Jacobian calculation though network forward, 
+This repo have replicate the [Jacobian](https://github.com/hjx-hitzjuer/CodeSLAM/blob/7abe97e1591002229c90a3e62215e4abaf0b78da/models/code_net.py#L43) calculation though network forward, 
 But I'm not sure if the original author solved it this way, but I can achieve about the same speed as the paper with this approach.
 The method is that propagate the linear weight as the fellow fig:
 ![](assert/jacobian-method.png)
