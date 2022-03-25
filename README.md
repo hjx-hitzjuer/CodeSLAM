@@ -1,5 +1,5 @@
 ### News
-Large-scale Online Dense Mapping for UAV ([LODM](https://github.com/hjxwhy/LODM)) traing code has released. It is submitted to IROS 2022. 
+Large-scale Online Dense Mapping for UAV ([LODM](https://github.com/hjxwhy/LODM)) traing code has released.
 # CodeSLAM
 Unofficial implement of "CodeSLAM — Learning a Compact, Optimisable Representation for Dense Visual SLAM" 
 and "DeepFactors: Real-Time Probabilistic Dense Monocular SLAM".
