@@ -1,3 +1,5 @@
+### News
+Large-scale Online Dense Mapping for UAV ([LODM](https://github.com/hjxwhy/LODM)) traing code has released. It is submitted to IROS 2022. 
 # CodeSLAM
 Unofficial implement of "CodeSLAM — Learning a Compact, Optimisable Representation for Dense Visual SLAM" 
 and "DeepFactors: Real-Time Probabilistic Dense Monocular SLAM".
@@ -5,6 +7,9 @@ and "DeepFactors: Real-Time Probabilistic Dense Monocular SLAM".
 ### Notice
 This repo have replicate the Jacobian calculation though network forward, 
 But I'm not sure if the original author solved it this way, but I can achieve about the same speed as the paper with this approach.
+The method is that propagate the linear weight as the fellow fig:
+![](assert/jacobian-method.png)
+![](assert/jacobian-method2.png)
 
 ### Install
 Create a conda environment and install requirements
@@ -23,6 +28,9 @@ Config values are documented in `config/default.yaml`.  You can start a training
 ```
 python train.py --config config/default.yaml path/to/out/folder DATA.ROOT_DIR $TANDEM_DATA_DIR
 ```
+### Result
+The boundary is blur, the VAE encode to low dimension will lose high frequency.
+![](assert/result.png)
 
 
 
